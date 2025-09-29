@@ -7,7 +7,7 @@
 ### Месяц 1 — База Python
 - [ ] Неделя 1: Базовые структуры и строки  
   - [x] Day 1: Numbers (`is_even`, `digit_sum`, `factorial`)  
-  - [ ] Day 2: Strings (`reverse_string`, `is_palindrome`, `count_vowels`)  
+  - [x] Day 2: Strings (`reverse_string`, `is_palindrome`, `count_vowels`)  
   - [ ] Day 3: Lists  
   - [ ] Day 4: Tuples & Sets  
   - [ ] Day 5: Dictionaries  
@@ -66,13 +66,15 @@ python-learning/
 │
 ├── week1/                          # Неделя 1 — Numbers, Strings, Lists…
 │   ├── init.py
-│   └── day1_numbers.py
+│   ├── day1_numbers.py
+│   └── day2_strings.py
 │
 ├── tests/                          # Тесты
 │   ├── init.py
 │   └──  week1/
 │       ├── init.py
-│       └── test_day1_numbers.py
+│       ├── test_day1_numbers.py
+│       └── test_day2_strings.py
 │
 ├── projects/                       # Мини-проекты
 │
