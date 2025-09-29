@@ -1,0 +1,23 @@
+# Временные файлы Excel
+~$*.xlsx
+
+# Python
+store_service/dev-requirements.txt
+.venv/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+*.sqlite3
+
+# IDE and OS
+.idea/
+*.swp
+.DS_Store
+.env
+.copy.env
