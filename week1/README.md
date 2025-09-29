@@ -6,7 +6,7 @@
 
 ### Week 1 — Базовые структуры и строки
 - [x] Day 1 — Numbers (`is_even`, `digit_sum`, `factorial`)
-- [ ] Day 2 — Strings
+- [x] Day 2 — Strings, Regex
 - [ ] Day 3 — Lists
 - [ ] Day 4 — Tuples & Sets
 - [ ] Day 5 — Dictionaries
