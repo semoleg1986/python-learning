@@ -8,7 +8,7 @@
 - [ ] Неделя 1: Базовые структуры и строки  
   - [x] Day 1: Numbers (`is_even`, `digit_sum`, `factorial`)  
   - [x] Day 2: Strings (`reverse_string`, `is_palindrome`, `count_vowels`)  
-  - [ ] Day 3: Lists  
+  - [x] Day 3: Lists, Docstring (`unique`, `flatten`, `find_max_min`)  
   - [ ] Day 4: Tuples & Sets  
   - [ ] Day 5: Dictionaries  
   - [ ] Day 6: Combined tasks  
@@ -67,14 +67,16 @@ python-learning/
 ├── week1/                          # Неделя 1 — Numbers, Strings, Lists…
 │   ├── init.py
 │   ├── day1_numbers.py
-│   └── day2_strings.py
+│   ├── day2_strings.py
+│   └── day3_lists.py
 │
 ├── tests/                          # Тесты
 │   ├── init.py
 │   └──  week1/
 │       ├── init.py
 │       ├── test_day1_numbers.py
-│       └── test_day2_strings.py
+│       ├── test_day2_strings.py
+│       └── test_day3_lists.py
 │
 ├── projects/                       # Мини-проекты
 │
