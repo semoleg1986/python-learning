@@ -14,7 +14,7 @@ def reverse_string(s: str) -> str:
     :return: Строка, где символы идут в обратном порядке.
     :rtype: str
     """
-    return "".join(reversed(list(s)))
+    return s[::-1]
 
 
 def is_palindrome(s: str) -> bool:
