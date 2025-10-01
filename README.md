@@ -9,7 +9,7 @@
   - [x] Day 1: Numbers (`is_even`, `digit_sum`, `factorial`)  
   - [x] Day 2: Strings (`reverse_string`, `is_palindrome`, `count_vowels`)  
   - [x] Day 3: Lists, Docstring (`unique`, `flatten`, `find_max_min`)  
-  - [ ] Day 4: Tuples & Sets  
+  - [x] Day 4: Tuples & Sets  
   - [ ] Day 5: Dictionaries  
   - [ ] Day 6: Combined tasks  
   - [ ] Day 7: Mini-project → **Word Analyzer**
@@ -76,7 +76,8 @@ python-learning/
 │       ├── init.py
 │       ├── test_day1_numbers.py
 │       ├── test_day2_strings.py
-│       └── test_day3_lists.py
+│       ├── test_day3_lists.py
+│       └── test_day4_tuples_and_sets.py
 │
 ├── projects/                       # Мини-проекты
 │
