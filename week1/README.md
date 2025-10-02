@@ -8,8 +8,8 @@
 - [x] Day 1 — Numbers (`is_even`, `digit_sum`, `factorial`)
 - [x] Day 2 — Strings, Regex) (`reverse_string`, `is_palindrome`, `count_vowels`)
 - [x] Day 3 — Lists, Docstring (`unique`, `flatten`, `find_max_min`)
-- [x] Day 4 — Tuples & Sets
-- [ ] Day 5 — Dictionaries
+- [x] Day 4 — Tuples & Sets (`common_elements`, `most_frequent`, `remove_duplicates`)
+- [x] Day 5 — Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
 - [ ] Day 6 — Combined tasks
 - [ ] Day 7 — Mini-project: Word Analyzer
 

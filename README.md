@@ -9,8 +9,8 @@
   - [x] Day 1: Numbers (`is_even`, `digit_sum`, `factorial`)  
   - [x] Day 2: Strings (`reverse_string`, `is_palindrome`, `count_vowels`)  
   - [x] Day 3: Lists, Docstring (`unique`, `flatten`, `find_max_min`)  
-  - [x] Day 4: Tuples & Sets  
-  - [ ] Day 5: Dictionaries  
+  - [x] Day 4: Tuples & Sets (`common_elements`, `most_frequent`, `remove_duplicates`)
+  - [x] Day 5: Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
   - [ ] Day 6: Combined tasks  
   - [ ] Day 7: Mini-project → **Word Analyzer**
 - [ ] Неделя 2: Управление потоком (if/for/while), функции  
@@ -68,7 +68,9 @@ python-learning/
 │   ├── init.py
 │   ├── day1_numbers.py
 │   ├── day2_strings.py
-│   └── day3_lists.py
+│   ├── day3_lists.py
+│   ├── day4_tuples_and_sets.py
+│   └── day5_dict.py
 │
 ├── tests/                          # Тесты
 │   ├── init.py
@@ -77,7 +79,8 @@ python-learning/
 │       ├── test_day1_numbers.py
 │       ├── test_day2_strings.py
 │       ├── test_day3_lists.py
-│       └── test_day4_tuples_and_sets.py
+│       ├── test_day4_tuples_and_sets.py
+│       └── test_day5_dict.py
 │
 ├── projects/                       # Мини-проекты
 │
