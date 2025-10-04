@@ -11,7 +11,7 @@
 - [x] Day 4 — Tuples & Sets (`common_elements`, `most_frequent`, `remove_duplicates`)
 - [x] Day 5 — Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
 - [x] Day 6 — Combined tasks (`count_of_words`, `freq_chars`, `remove_duplicates_words`, `reverse_words`, `top3_words`)
-- [ ] Day 7 — Mini-project: Word Analyzer
+- [x] Day 7 — Mini-project: Word Analyzer
 
 ---
 

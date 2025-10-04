@@ -5,14 +5,14 @@
 ## 📅 Roadmap по месяцам
 
 ### Месяц 1 — База Python
-- [ ] Неделя 1: Базовые структуры и строки  
+- [x] Неделя 1: Базовые структуры и строки  
   - [x] Day 1: Numbers (`is_even`, `digit_sum`, `factorial`)  
   - [x] Day 2: Strings (`reverse_string`, `is_palindrome`, `count_vowels`)  
   - [x] Day 3: Lists, Docstring (`unique`, `flatten`, `find_max_min`)  
   - [x] Day 4: Tuples & Sets (`common_elements`, `most_frequent`, `remove_duplicates`)
   - [x] Day 5: Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
   - [x] Day 6: Combined tasks (`count_of_words`, `freq_chars`, `remove_duplicates_words`, `reverse_words`, `top3_words`)
-  - [ ] Day 7: Mini-project → **Word Analyzer**
+  - [x] Day 7: Mini-project → **Word Analyzer**
 - [ ] Неделя 2: Управление потоком (if/for/while), функции  
 - [ ] Неделя 3: ООП (классы, наследование, инкапсуляция)  
 - [ ] Неделя 4: Модули, работа с файлами, pytest
@@ -85,6 +85,21 @@ python-learning/
 │       └── test_day6_combine.py
 │
 ├── projects/                       # Мини-проекты
+│   ├── init.py
+│   └── word_analyzer/              # CLI Word Analyzer
+│       ├── init.py
+│       ├── analyzer.py             # Анализатор текста
+│       ├── cli.py                  # CLI-приложение
+│       ├── main.py                 # Запускает приложение
+│       ├── README.md
+│       ├── Makefile
+│       ├── tests                   # Тесты
+│       │   ├── init.py
+│       │   └── test_analyzer.py
+│       │
+│       └── utils/                  # Логгирование
+│           ├── init.py
+│           └── logger.py
 │
 └── docs/                           # Документация
     └── python_r.xlsx
