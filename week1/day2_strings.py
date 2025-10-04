@@ -2,6 +2,7 @@
 Day 2 — Strings practice
 Задачи на базовые операции со строками.
 """
+
 import re
 
 

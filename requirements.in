@@ -9,3 +9,5 @@ pre-commit
 
 tabulate
 types-tabulate
+
+pytest-typing
