@@ -10,7 +10,7 @@
 - [x] Day 3 — Lists, Docstring (`unique`, `flatten`, `find_max_min`)
 - [x] Day 4 — Tuples & Sets (`common_elements`, `most_frequent`, `remove_duplicates`)
 - [x] Day 5 — Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
-- [ ] Day 6 — Combined tasks
+- [x] Day 6 — Combined tasks (`count_of_words`, `freq_chars`, `remove_duplicates_words`, `reverse_words`, `top3_words`)
 - [ ] Day 7 — Mini-project: Word Analyzer
 
 ---
@@ -26,3 +26,4 @@ python week1/day1_numbers.py
 python week1/day2_string.py
 python week1/day3_lists.py
 python week1/day4_tuples_and_sets.py
+python week1/day5_combine.py

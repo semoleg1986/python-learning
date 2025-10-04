@@ -11,7 +11,7 @@
   - [x] Day 3: Lists, Docstring (`unique`, `flatten`, `find_max_min`)  
   - [x] Day 4: Tuples & Sets (`common_elements`, `most_frequent`, `remove_duplicates`)
   - [x] Day 5: Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
-  - [ ] Day 6: Combined tasks  
+  - [x] Day 6: Combined tasks (`count_of_words`, `freq_chars`, `remove_duplicates_words`, `reverse_words`, `top3_words`)
   - [ ] Day 7: Mini-project → **Word Analyzer**
 - [ ] Неделя 2: Управление потоком (if/for/while), функции  
 - [ ] Неделя 3: ООП (классы, наследование, инкапсуляция)  
@@ -70,7 +70,8 @@ python-learning/
 │   ├── day2_strings.py
 │   ├── day3_lists.py
 │   ├── day4_tuples_and_sets.py
-│   └── day5_dict.py
+│   ├── day5_dict.py
+│   └── day6_combine.py
 │
 ├── tests/                          # Тесты
 │   ├── init.py
@@ -80,7 +81,8 @@ python-learning/
 │       ├── test_day2_strings.py
 │       ├── test_day3_lists.py
 │       ├── test_day4_tuples_and_sets.py
-│       └── test_day5_dict.py
+│       ├── test_day5_dict.py
+│       └── test_day6_combine.py
 │
 ├── projects/                       # Мини-проекты
 │
