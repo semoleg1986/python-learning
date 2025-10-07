@@ -6,7 +6,7 @@
 
 ### Week 2 — Функции, модули и ООП
 - [x] Day 1 — Functions & Arguments (`sum_all`, `print_info`, `calc_avg`)
-- [ ] Day 2 — Lambda, Map, Filter, Reduce (`squares`, `filter_even`, `product`)
+- [x] Day 2 — Lambda, Map, Filter, Reduce (`squares`, `filter_even`, `product`)
 - [ ] Day 3 — Classes & Objects (`Person`, `Circle`, `Book`)
 - [ ] Day 4 — Inheritance & Polymorphism (`Animal`, `Dog`, `Cat`, `Account`, `SavingsAccount`)
 - [ ] Day 5 — Modules & Imports (`random_sqrt`, `current_date`, `from_math_utils`)
