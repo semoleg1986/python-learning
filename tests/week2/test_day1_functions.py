@@ -18,7 +18,7 @@ def test_sum_all(inp: tuple[float, ...], expected: float) -> None:
 @pytest.mark.parametrize(
     "inp",
     [({"name": "", "age": 38}), ({"city": "Tokyo", "country": "Japan"}), ({})],
-)
+)  # type: ignore[misc]
 def test_print_info(inp: dict[str, object], capsys) -> None:
     print_info(**inp)
     captured = capsys.readouterr()
@@ -34,7 +34,7 @@ def test_print_info(inp: dict[str, object], capsys) -> None:
         ((3.0, 2, 5.0), 3.3333333333333335),
         ((-1, -2, -3), -2.0),
     ],
-)
+)  # type: ignore[misc]
 def test_calc_avg_valid(inp: tuple[float, ...], expected: float) -> None:
     assert calc_avg(*inp) == expected
 
