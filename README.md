@@ -18,7 +18,7 @@
   - [x] Day 2 — Lambda, Map, Filter, Reduce (`squares`, `filter_even`, `product`)
   - [x] Day 3 — Classes & Objects (`Person`, `Circle`, `Book`)
   - [x] Day 4 — Inheritance & Polymorphism (`Animal`, `Dog`, `Cat`, `Account`, `SavingsAccount`)
-  - [ ] Day 5 — Modules & Imports (`random_sqrt`, `current_date`, `from_math_utils`)
+  - [x] Day 5 — Modules & Imports (`random_sqrt`, `current_date`, `from_math_utils`)
   - [ ] Day 6 — Combined Tasks (`Stats`, `sort_and_filter`, `count_letters_in_file`)
   - [ ] Day 7 — Mini-project: CLI Calculator 
 - [ ] Неделя 3: ООП (классы, наследование, инкапсуляция)  
