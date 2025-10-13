@@ -13,14 +13,14 @@
   - [x] Day 5: Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
   - [x] Day 6: Combined tasks (`count_of_words`, `freq_chars`, `remove_duplicates_words`, `reverse_words`, `top3_words`)
   - [x] Day 7: Mini-project → **Word Analyzer**
-- [ ] Неделя 2: Управление потоком (if/for/while), функции
+- [x] Неделя 2: Управление потоком (if/for/while), функции
   - [x] Day 1 — Functions & Arguments (`sum_all`, `print_info`, `calc_avg`)
   - [x] Day 2 — Lambda, Map, Filter, Reduce (`squares`, `filter_even`, `product`)
   - [x] Day 3 — Classes & Objects (`Person`, `Circle`, `Book`)
   - [x] Day 4 — Inheritance & Polymorphism (`Animal`, `Dog`, `Cat`, `Account`, `SavingsAccount`)
   - [x] Day 5 — Modules & Imports (`random_sqrt`, `current_date`, `from_math_utils`)
   - [x] Day 6 — Combined Tasks (`Stats`, `sort_and_filter`, `count_letters_in_file`)
-  - [ ] Day 7 — Mini-project: CLI Calculator 
+  - [x] Day 7 — Mini-project: CLI Calculator 
 - [ ] Неделя 3: ООП (классы, наследование, инкапсуляция)  
 - [ ] Неделя 4: Модули, работа с файлами, pytest
 
@@ -82,17 +82,40 @@ python-learning/
 │
 ├── tests/                          # Тесты
 │   ├── init.py
-│   └──  week1/
-│       ├── init.py
-│       ├── test_day1_numbers.py
-│       ├── test_day2_strings.py
-│       ├── test_day3_lists.py
-│       ├── test_day4_tuples_and_sets.py
-│       ├── test_day5_dict.py
-│       └── test_day6_combine.py
+│   ├── week1/
+│   │   ├── init.py
+│   │   ├── test_day1_numbers.py
+│   │   ├── test_day2_strings.py
+│   │   ├── test_day3_lists.py
+│   │   ├── test_day4_tuples_and_sets.py
+│   │   ├── test_day5_dict.py
+│   │   └── test_day6_combine.py
+│   │
+│   └── week2/
+│       ├── day1_functions.py
+│       ├── day2_lambda.py
+│       ├── day3_classes.py
+│       ├── day4_inheritance.py
+│       ├── day5_modules.py
+│       ├── day6_combine.py
+│       ├── math_utils.py
+│       └── test.txt
 │
 ├── projects/                       # Мини-проекты
 │   ├── init.py
+│   ├── cli_calculator/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── calculator.py          # Логика вычислений
+│   │   ├── cli.py                 # CLI-интерфейс (App)
+│   │   ├── main.py                # Точка входа
+│   │   ├── utils/
+│   │   │   ├── __init__.py
+│   │   │   └── logger.py          # Настройка логирования
+│   │   └── tests/
+│   │       ├── __init__.py
+│   │       └── test_cli_calculator.py  # Юнит-тесты
 │   └── word_analyzer/              # CLI Word Analyzer
 │       ├── init.py
 │       ├── analyzer.py             # Анализатор текста
