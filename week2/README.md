@@ -10,7 +10,7 @@
 - [x] Day 3 — Classes & Objects (`Person`, `Circle`, `Book`)
 - [x] Day 4 — Inheritance & Polymorphism (`Animal`, `Dog`, `Cat`, `Account`, `SavingsAccount`)
 - [x] Day 5 — Modules & Imports (`random_sqrt`, `current_date`, `from_math_utils`)
-- [ ] Day 6 — Combined Tasks (`Stats`, `sort_and_filter`, `count_letters_in_file`)
+- [x] Day 6 — Combined Tasks (`Stats`, `sort_and_filter`, `count_letters_in_file`)
 - [ ] Day 7 — Mini-project: CLI Calculator
 
 ---
