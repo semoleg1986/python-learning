@@ -21,8 +21,14 @@
   - [x] Day 5 — Modules & Imports (`random_sqrt`, `current_date`, `from_math_utils`)
   - [x] Day 6 — Combined Tasks (`Stats`, `sort_and_filter`, `count_letters_in_file`)
   - [x] Day 7 — Mini-project: CLI Calculator 
-- [ ] Неделя 3: ООП (классы, наследование, инкапсуляция)  
-- [ ] Неделя 4: Модули, работа с файлами, pytest
+- [ ] Неделя 3: Исключения, файлы и стандартные модули
+  - [ ] Day 1 — Exception Handling (`divide`, `safe_int`, `access_list_element`)
+  - [ ] Day 2 — Custom Exceptions (`NegativeValueError`, `InvalidAgeError`, `check_age`)
+  - [ ] Day 3 — File Operations (`read_file`, `write_file`, `append_line`)
+  - [ ] Day 4 — Pathlib & File Paths (`list_files`, `create_folder`, `file_info`)
+  - [ ] Day 5 — Standard Modules (`current_time`, `combine_lists`, `multiply_all`)
+  - [ ] Day 6 — Combined Tasks (`read_json`, `count_lines_with_word`, `safe_write`)
+  - [ ] Day 7 — Mini-project: Log Analyzer CLI
 
 ---
 
