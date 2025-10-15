@@ -13,7 +13,7 @@
   - [x] Day 5: Dictionaries (`char_frequency`, `merge_dicts`, `invert_dict`)
   - [x] Day 6: Combined tasks (`count_of_words`, `freq_chars`, `remove_duplicates_words`, `reverse_words`, `top3_words`)
   - [x] Day 7: Mini-project → **Word Analyzer**
-- [x] Неделя 2: Управление потоком (if/for/while), функции
+- [x] Неделя 2: Функции, модули и ООП
   - [x] Day 1 — Functions & Arguments (`sum_all`, `print_info`, `calc_avg`)
   - [x] Day 2 — Lambda, Map, Filter, Reduce (`squares`, `filter_even`, `product`)
   - [x] Day 3 — Classes & Objects (`Person`, `Circle`, `Book`)
