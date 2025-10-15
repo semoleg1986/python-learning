@@ -22,7 +22,7 @@
   - [x] Day 6 — Combined Tasks (`Stats`, `sort_and_filter`, `count_letters_in_file`)
   - [x] Day 7 — Mini-project: CLI Calculator 
 - [ ] Неделя 3: Исключения, файлы и стандартные модули
-  - [ ] Day 1 — Exception Handling (`divide`, `safe_int`, `access_list_element`)
+  - [x] Day 1 — Exception Handling (`divide`, `safe_int`, `access_list_element`)
   - [ ] Day 2 — Custom Exceptions (`NegativeValueError`, `InvalidAgeError`, `check_age`)
   - [ ] Day 3 — File Operations (`read_file`, `write_file`, `append_line`)
   - [ ] Day 4 — Pathlib & File Paths (`list_files`, `create_folder`, `file_info`)
