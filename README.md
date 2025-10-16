@@ -26,7 +26,7 @@
   - [x] Day 2 — Custom Exceptions (`NegativeValueError`, `InvalidAgeError`, `check_age`)
   - [x] Day 3 — File Operations (`read_file`, `write_file`, `append_line`)
   - [x] Day 4 — Pathlib & File Paths (`list_files`, `create_folder`, `file_info`)
-  - [ ] Day 5 — Standard Modules (`current_time`, `combine_lists`, `multiply_all`)
+  - [x] Day 5 — Standard Modules (`current_time`, `combine_lists`, `multiply_all`)
   - [ ] Day 6 — Combined Tasks (`read_json`, `count_lines_with_word`, `safe_write`)
   - [ ] Day 7 — Mini-project: Log Analyzer CLI
 
