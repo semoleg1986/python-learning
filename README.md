@@ -28,7 +28,7 @@
   - [x] Day 4 — Pathlib & File Paths (`list_files`, `create_folder`, `file_info`)
   - [x] Day 5 — Standard Modules (`current_time`, `combine_lists`, `multiply_all`)
   - [x] Day 6 — Combined Tasks (`read_json`, `count_lines_with_word`, `safe_write`)
-  - [ ] Day 7 — Mini-project: Log Analyzer CLI
+  - [x] Day 7 — Mini-project: Log Analyzer CLI
 
 ---
 
