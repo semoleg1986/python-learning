@@ -1,0 +1,46 @@
+# 🔹 День 5 — Повторение и закрепление
+# Тема: Git Flow, теги, revert и reset
+
+# --- Теория ---
+# Git Flow: организация веток
+# main — стабильная версия
+# develop — активная разработка
+# feature/* — временные ветки для задач
+
+# Работа с тегами:
+# git tag — создание, просмотр и удаление тегов
+# git revert — безопасное откатывание конкретного коммита
+# git reset — жёсткий откат изменений (меняет историю)
+
+# --- Практика ---
+
+# 1. Проверяем историю
+git log --oneline --graph --decorate
+
+# 2. Создаём временный коммит для теста
+echo "test revert" >> test.txt
+git add test.txt
+git commit -m "test: проверка revert"
+
+# 3. Откатываем коммит (создаёт новый обратный коммит)
+git revert HEAD
+
+# 4. Пример жёсткого отката (удаляет коммит)
+# ⚠️ Осторожно! Это меняет историю
+git reset --hard HEAD~1
+
+# 5. Создаём тэг для текущей стабильной версии
+git tag v1.0.0
+
+# 6. Проверяем тэги
+git tag
+
+# 7. Отправляем тэги на GitHub
+git push origin v1.0.0
+
+# 8. Подготавливаем репозиторий к мини-проекту
+git checkout -b feature/mini-project
+echo "# Mini Project initialized" > README.md
+git add README.md
+git commit -m "chore: подготовка к мини-проекту"
+git push origin feature/mini-project
