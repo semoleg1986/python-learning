@@ -1,0 +1,21 @@
+# Python Learning Roadmap
+
+---
+
+## 📅 Прогресс
+
+### Week 4 — Git, практика и мини-проект
+- [x] Day 1 — Git Basics (`git init`, `git add`, `git commit`, `git log`)
+- [ ] Day 2 — Branches & Remote (`git branch`, `git merge`, `git push`, `git pull`)
+- [ ] Day 3 — Pull Requests & Code Review (`feature/day3`, `PR`, `merge`)
+- [ ] Day 4 — .gitignore & SSH (`.gitignore`, `exclude`, `SSH keys`)
+- [ ] Day 5 — Git Flow & Tags (`git flow`, `git revert`, `git reset`, `git tag`)
+- [ ] Day 6 — Combined Git Tasks (`develop`, `feature`, `.pre-commit`)
+- [ ] Day 7 — Mini-project: CLI Password Manager (`add_password`, `remove_password`, `find_password`)
+
+---
+
+## 📂 Projects
+- `password-manager-cli/` — CLI “Менеджер паролей”. (Week 4, Day 7)
+
+---
