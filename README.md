@@ -35,7 +35,7 @@
   - [x] Day 3 — Pull Requests & Code Review (`feature/day3`, `PR`, `merge`)
   - [x] Day 4 — .gitignore & SSH (`.gitignore`, `exclude`, `SSH keys`)
   - [x] Day 5 — Git Flow & Tags (`git flow`, `git revert`, `git reset`, `git tag`)
-  - [ ] Day 6 — Combined Git Tasks (`develop`, `feature`, `.pre-commit`)
+  - [x] Day 6 — Combined Git Tasks (`develop`, `feature`, `.pre-commit`)
   - [ ] Day 7 — Mini-project: CLI Password Manager (`add_password`, `remove_password`, `find_password`)
 ---
 
