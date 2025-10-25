@@ -1,0 +1,27 @@
+Настройка .pre-commit (опционально)
+
+# Установить pre-commit
+pip install pre-commit
+
+# Создать конфиг
+nano .pre-commit-config.yaml
+
+# Пример конфига:
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+
+
+# Инициализация:
+
+pre-commit install
+
+# Проверка:
+
+pre-commit run --all-files
