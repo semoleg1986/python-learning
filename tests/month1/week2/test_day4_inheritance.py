@@ -1,6 +1,6 @@
 import pytest
 
-from week2.day4_inheritance import SavingsAccount, TransactionError
+from month1.week2.day4_inheritance import SavingsAccount, TransactionError
 
 
 def test_deposit_and_withdraw():

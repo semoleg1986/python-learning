@@ -1,6 +1,6 @@
 import pytest
 
-from week1.day3_lists import find_max_min, flatten, unique
+from month1.week1.day3_lists import find_max_min, flatten, unique
 
 
 @pytest.mark.parametrize(

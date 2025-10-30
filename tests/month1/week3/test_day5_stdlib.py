@@ -2,7 +2,12 @@ import re
 
 import pytest
 
-from week3.day5_stdlib import combine_lists, count_elements, current_time, multiply_all
+from month1.week3.day5_stdlib import (
+    combine_lists,
+    count_elements,
+    current_time,
+    multiply_all,
+)
 
 
 def test_current_date_format() -> None:

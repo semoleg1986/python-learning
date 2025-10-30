@@ -1,6 +1,6 @@
 import pytest
 
-from week1.day2_strings import count_vowels, is_palindrome, reverse_string
+from month1.week1.day2_strings import count_vowels, is_palindrome, reverse_string
 
 
 @pytest.mark.parametrize(

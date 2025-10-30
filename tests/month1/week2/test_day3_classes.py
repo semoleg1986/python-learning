@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from week2.day3_classes import Book, Circle, Person
+from month1.week2.day3_classes import Book, Circle, Person
 
 
 @pytest.mark.parametrize(

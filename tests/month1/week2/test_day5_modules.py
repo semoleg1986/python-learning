@@ -3,7 +3,7 @@ import sys
 import types
 from datetime import datetime
 
-from week2.day5_modules import current_date, from_math_utils, random_sqrt
+from month1.week2.day5_modules import current_date, from_math_utils, random_sqrt
 
 
 def test_random_sqrt():

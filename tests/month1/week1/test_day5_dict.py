@@ -1,6 +1,6 @@
 import pytest
 
-from week1.day5_dict import char_frequency, invert_dict, merge_dicts
+from month1.week1.day5_dict import char_frequency, invert_dict, merge_dicts
 
 
 @pytest.mark.parametrize(

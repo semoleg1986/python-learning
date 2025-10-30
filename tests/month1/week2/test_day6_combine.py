@@ -1,6 +1,6 @@
 import pytest
 
-from week2.day6_combine import Stats, count_letters_in_file, sort_and_filter
+from month1.week2.day6_combine import Stats, count_letters_in_file, sort_and_filter
 
 
 @pytest.mark.parametrize(

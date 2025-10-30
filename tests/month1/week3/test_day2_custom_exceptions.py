@@ -1,6 +1,6 @@
 import pytest
 
-from week3.day2_custom_exceptions import (
+from month1.week3.day2_custom_exceptions import (
     InvalidAgeError,
     NegativeValueError,
     check_age,

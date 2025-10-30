@@ -1,6 +1,6 @@
 import pytest
 
-from week3.day1_exceptions import access_list_element, divide, safe_int
+from month1.week3.day1_exceptions import access_list_element, divide, safe_int
 
 
 @pytest.mark.parametrize(

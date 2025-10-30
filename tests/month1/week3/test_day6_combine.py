@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from week3.day6_combine import count_lines_with_word, read_json, safe_write
+from month1.week3.day6_combine import count_lines_with_word, read_json, safe_write
 
 
 def test_read_json_valid(tmp_path: Path):

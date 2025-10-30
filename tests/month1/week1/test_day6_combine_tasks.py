@@ -1,6 +1,6 @@
 import pytest
 
-from week1.day6_combine import (
+from month1.week1.day6_combine import (
     count_of_words,
     freq_chars,
     remove_duplicates_words,

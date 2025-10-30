@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from week3.day3_files import append_line, read_file, write_file
+from month1.week3.day3_files import append_line, read_file, write_file
 
 
 def test_write_and_read_file(tmp_path: Path):

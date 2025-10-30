@@ -1,6 +1,6 @@
 import pytest
 
-from week1.day1_numbers import digit_sum, factorial, factorial2, is_even
+from month1.week1.day1_numbers import digit_sum, factorial, factorial2, is_even
 
 
 def test_is_even() -> None:

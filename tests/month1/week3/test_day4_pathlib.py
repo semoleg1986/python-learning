@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from week3.day4_pathlib import create_folder, file_info, list_files
+from month1.week3.day4_pathlib import create_folder, file_info, list_files
 
 # ---------- list_files ----------
 

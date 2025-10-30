@@ -1,6 +1,10 @@
 import pytest
 
-from week1.day4_tuples_and_sets import common_elements, most_frequent, remove_duplicates
+from month1.week1.day4_tuples_and_sets import (
+    common_elements,
+    most_frequent,
+    remove_duplicates,
+)
 
 
 @pytest.mark.parametrize(

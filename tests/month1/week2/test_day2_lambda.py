@@ -1,6 +1,6 @@
 import pytest
 
-from week2.day2_lambda import filter_even, product, squares
+from month1.week2.day2_lambda import filter_even, product, squares
 
 
 @pytest.mark.parametrize(

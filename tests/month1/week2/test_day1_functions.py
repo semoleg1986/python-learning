@@ -1,6 +1,6 @@
 import pytest
 
-from week2.day1_functions import calc_avg, print_info, sum_all
+from month1.week2.day1_functions import calc_avg, print_info, sum_all
 
 
 @pytest.mark.parametrize(
