@@ -17,5 +17,5 @@ def mul(x: float, y: float) -> float:
 
 def div(x: float, y: float) -> float:
     if y < 0:
-        raise ValueError("На ноль делить нельзя")
+        raise ZeroDivisionError("На ноль делить нельзя")
     return x / y
