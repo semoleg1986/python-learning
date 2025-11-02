@@ -1,19 +1,11 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from models import ItemResponse, RootResponse
 
 app = FastAPI(
     title="Example API",
     description="Simple get service with typed responses",
     version="1.0.0",
 )
-
-
-class RootResponse(BaseModel):
-    message: str
-
-
-class ItemResponse(BaseModel):
-    item_id: int
 
 
 @app.get("/", response_model=RootResponse, description="Returns a welcome message")
