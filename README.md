@@ -65,7 +65,7 @@
   - [ ] Day 6: Комбинированные задачи (Users + Tasks)  
   - [ ] Day 7: Mini-project: **ToDo API с JWT-аутентификацией**
 - [ ] Неделя 4: Валидация, тестирование и документация
-  - [ ] Day 1: Расширенная валидация (`EmailStr`, `constr`, `validator`)  
+  - [x] Day 1: Расширенная валидация (`EmailStr`, `constr`, `validator`)  
   - [ ] Day 2: Тестирование API (`pytest`, `httpx.AsyncClient`)  
   - [ ] Day 3: Документация Swagger / ReDoc (`/docs`, `/redoc`)  
   - [ ] Day 4: Конфигурация окружения (`.env`, `.env.example`)  
