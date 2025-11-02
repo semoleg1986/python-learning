@@ -12,3 +12,4 @@ types-tabulate
 
 fastapi
 uvicorn
+pydantic

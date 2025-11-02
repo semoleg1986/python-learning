@@ -1,16 +1,30 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(
+    title="Example API",
+    description="Simple get service with typed responses",
+    version="1.0.0",
+)
 
 
-@app.get("/")
+class RootResponse(BaseModel):
+    message: str
+
+
+class ItemResponse(BaseModel):
+    item_id: int
+
+
+@app.get("/", response_model=RootResponse, description="Returns a welcome message")
 def read_root():
-    data = {"message": "Hello, World!"}
-    return JSONResponse(content=data, status_code=200)
+    return RootResponse(message="Hello, World!")
 
 
-@app.get("/{item_id}")
-def read_id(item_id: int):
-    data = {"id": item_id}
-    return JSONResponse(content=data, status_code=200)
+@app.get(
+    "/item/{item_id}",
+    response_model=ItemResponse,
+    description="Returns item information by ID",
+)
+def read_item(item_id: int):
+    return ItemResponse(item_id=item_id)
