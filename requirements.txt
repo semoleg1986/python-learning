@@ -4,20 +4,34 @@
 #
 #    pip-compile --cert=None --client-cert=None --index-url=None --pip-args=None requirements.in
 #
+annotated-doc==0.0.3
+    # via fastapi
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.11.0
+    # via starlette
 black==25.9.0
     # via -r requirements.in
 cfgv==3.4.0
     # via pre-commit
 click==8.3.0
-    # via black
+    # via
+    #   black
+    #   uvicorn
 distlib==0.4.0
     # via virtualenv
+fastapi==0.120.4
+    # via -r requirements.in
 filelock==3.19.1
     # via virtualenv
 flake8==7.3.0
     # via -r requirements.in
+h11==0.16.0
+    # via uvicorn
 identify==2.6.15
     # via pre-commit
+idna==3.11
+    # via anyio
 iniconfig==2.1.0
     # via pytest
 isort==6.1.0
@@ -50,6 +64,10 @@ pre-commit==4.3.0
     # via -r requirements.in
 pycodestyle==2.14.0
     # via flake8
+pydantic==2.12.3
+    # via fastapi
+pydantic-core==2.41.4
+    # via pydantic
 pyflakes==3.4.0
     # via flake8
 pygments==2.19.2
@@ -60,11 +78,26 @@ pytokens==0.1.10
     # via black
 pyyaml==6.0.3
     # via pre-commit
+sniffio==1.3.1
+    # via anyio
+starlette==0.49.3
+    # via fastapi
 tabulate==0.9.0
     # via -r requirements.in
 types-tabulate==0.9.0.20241207
     # via -r requirements.in
 typing-extensions==4.15.0
-    # via mypy
+    # via
+    #   anyio
+    #   fastapi
+    #   mypy
+    #   pydantic
+    #   pydantic-core
+    #   starlette
+    #   typing-inspection
+typing-inspection==0.4.2
+    # via pydantic
+uvicorn==0.38.0
+    # via -r requirements.in
 virtualenv==20.34.0
     # via pre-commit

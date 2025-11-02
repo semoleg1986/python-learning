@@ -9,3 +9,6 @@ pre-commit
 
 tabulate
 types-tabulate
+
+fastapi
+uvicorn
