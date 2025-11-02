@@ -8,6 +8,10 @@
 - Использует Pydantic для валидации данных и type hints для автогенерации OpenAPI.
 - Uvicorn — ASGI-сервер для запуска FastAPI-приложений.
 
+💡 Вывод:
+	•	Для простых словарей → просто возвращаем dict.
+	•	Для кастомизации → используем JSONResponse.
+
 более подробно о FastAPI
 ```commandline
 cd docs
