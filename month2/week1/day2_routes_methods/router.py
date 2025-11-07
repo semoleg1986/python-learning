@@ -22,16 +22,18 @@ def get_products():
     description="Returns product by index",
 )
 def get_product(product_id: int):
-    if product_id < 0 or product_id >= len(products):
+    product = next((p for p in products if p.id == product_id), None)
+    if not product:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
         )
-    product = products[product_id]
     return product
 
 
 @router.post("/products/", response_model=Product, description="Create product")
 def create_product(product: Product):
+    new_id = max((p.id for p in products), default=0) + 1
+    product.id = new_id
     products.append(product)
     return product
 
@@ -42,12 +44,17 @@ def create_product(product: Product):
     description="Update product by index",
 )
 def update_product(product_id: int, product: Product):
-    if product_id < 0 or product_id >= len(products):
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
-        )
-    products[product_id] = product
-    return product
+    for i, existing_product in enumerate(products):
+        if existing_product.id == product_id:
+            updated_product = Product(
+                id=product_id, name=product.name, price=product.price
+            )
+            products[i] = updated_product
+            return updated_product
+
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
+    )
 
 
 @router.delete(
@@ -56,9 +63,11 @@ def update_product(product_id: int, product: Product):
     description="Delete product by index",
 )
 def remove_product(product_id: int):
-    if product_id < 0 or product_id >= len(products):
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
-        )
-    del products[product_id]
-    pass
+    for i, existing_product in enumerate(products):
+        if existing_product.id == product_id:
+            del products[i]
+            return
+
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
+    )
