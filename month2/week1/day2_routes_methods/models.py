@@ -1,7 +1,43 @@
+from uuid import UUID, uuid4
+
 from pydantic import BaseModel, Field
 
 
-class Product(BaseModel):
-    id: int | None = None
-    name: str = Field(default="Apple AirMax Pro")
-    price: float = Field(default=60000, gt=0)
+class BaseProduct(BaseModel):
+    """
+    Базовая модель продукта.
+    """
+
+    name: str = Field(default="Apple AirMax Pro", description="Название продукта")
+    price: float = Field(default=60000, gt=0, description="Цена продукта (в рублях)")
+
+
+class CreateProduct(BaseProduct):
+    """
+    Модель для создания нового продукта.
+    UUID генерируется автоматически на сервере.
+    """
+
+    pass
+
+
+class ResponseProduct(BaseProduct):
+    """
+    Модель ответа API с информацией о продукте.
+    Содержит уникальный идентификатор UUID.
+    """
+
+    id: UUID = Field(
+        default_factory=uuid4, description="Уникальный идентификатор продукта"
+    )
+
+
+class ResponseCreateProduct(BaseModel):
+    """
+    Модель ответа API созданного продукта.
+    Содержит уникальный идентификатор UUID.
+    """
+
+    id: UUID = Field(
+        default_factory=uuid4, description="Уникальный идентификатор продукта"
+    )

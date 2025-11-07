@@ -1,8 +1,9 @@
 from typing import List
+from uuid import UUID, uuid4
 
 from data import products
 from fastapi import APIRouter, HTTPException, status
-from models import Product
+from models import BaseProduct, CreateProduct, ResponseCreateProduct, ResponseProduct
 
 router = APIRouter(
     prefix="/product",
@@ -11,33 +12,27 @@ router = APIRouter(
 )
 
 
-@router.get(
-    "/products/", response_model=List[Product], description="Returns all products."
-)
+@router.get("/products/", response_model=List[ResponseProduct])
 def get_products():
     """
     Возвращает список всех продуктов.
 
     :return: Список объектов `Product`.
-    :rtype: List[Product]
+    :rtype: List[ResponseProduct]
     """
     return products
 
 
-@router.get(
-    "/products/{product_id}",
-    response_model=Product,
-    description="Returns a product by its ID.",
-)
-def get_product(product_id: int):
+@router.get("/products/{product_id}", response_model=ResponseProduct)
+def get_product(product_id: UUID):
     """
-    Возвращает продукт по идентификатору.
+    Возвращает продукт по идентификатору (UUID).
 
-    :param product_id: Идентификатор продукта.
-    :type product_id: int
-    :raises HTTPException: Если продукт с таким ID не найден.
+    :param product_id: UUID продукта.
+    :type product_id: UUID
+    :raises HTTPException: Если продукт не найден.
     :return: Объект `Product`.
-    :rtype: Product
+    :rtype: ResponseProduct
     """
     product = next((p for p in products if p.id == product_id), None)
     if not product:
@@ -47,73 +42,55 @@ def get_product(product_id: int):
     return product
 
 
-@router.post("/products/", response_model=Product, description="Creates a new product.")
-def create_product(product: Product):
+@router.post("/products/", response_model=ResponseCreateProduct)
+def create_product(product: CreateProduct):
     """
     Создаёт новый продукт и добавляет его в список.
 
-    ID генерируется автоматически (max(id) + 1).
+    UUID генерируется автоматически.
 
-    :param product: Объект продукта для добавления.
-    :type product: Product
-    :return: Созданный объект `Product` с новым ID.
-    :rtype: Product
+    :param product: Объект продукта без ID.
+    :type product: CreateProduct
+    :return: UUID cозданного объекта.
+    :rtype: ResponseCreateProduct
     """
-    new_id = max((p.id for p in products), default=0) + 1
-    product.id = new_id
-    products.append(product)
-    return product
+    new_product = ResponseProduct(id=uuid4(), name=product.name, price=product.price)
+    products.append(new_product)
+    return new_product.id
 
 
-@router.put(
-    "/products/{product_id}",
-    response_model=Product,
-    description="Updates an existing product by ID.",
-)
-def update_product(product_id: int, product: Product):
+@router.put("/products/{product_id}", response_model=ResponseProduct)
+def update_product(product_id: UUID, product: BaseProduct):
     """
-    Обновляет данные существующего продукта по ID.
+    Обновляет данные существующего продукта по UUID.
 
-    :param product_id: Идентификатор продукта для обновления.
-    :type product_id: int
+    :param product_id: UUID продукта.
+    :type product_id: UUID
     :param product: Обновлённые данные продукта.
-    :type product: Product
-    :raises HTTPException: Если продукт с таким ID не найден.
+    :type product: BaseProduct
+    :raises HTTPException: Если продукт не найден.
     :return: Обновлённый объект `Product`.
-    :rtype: Product
+    :rtype: ResponseProduct
     """
     for i, existing_product in enumerate(products):
         if existing_product.id == product_id:
-            updated_product = Product(
+            updated_product = ResponseProduct(
                 id=product_id, name=product.name, price=product.price
             )
             products[i] = updated_product
             return updated_product
-
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
     )
 
 
-@router.delete(
-    "/products/{product_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    description="Deletes a product by ID.",
-)
-def remove_product(product_id: int):
-    """
-    Удаляет продукт по идентификатору.
-
-    :param product_id: Идентификатор продукта для удаления.
-    :type product_id: int
-    :raises HTTPException: Если продукт с таким ID не найден.
-    :return: None
-    """
+@router.delete("/products/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
+def remove_product(product_id: UUID):
+    """Удаляет продукт по UUID."""
     for i, existing_product in enumerate(products):
         if existing_product.id == product_id:
             del products[i]
             return
-
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
     )

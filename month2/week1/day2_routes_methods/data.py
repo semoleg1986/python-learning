@@ -1,5 +1,5 @@
 from typing import List
 
-from models import Product
+from models import ResponseProduct
 
-products: List[Product] = []
+products: List[ResponseProduct] = []
