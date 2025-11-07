@@ -13,3 +13,4 @@ types-tabulate
 fastapi
 uvicorn
 pydantic
+httpx

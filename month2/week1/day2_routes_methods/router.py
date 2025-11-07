@@ -42,7 +42,11 @@ def get_product(product_id: UUID):
     return product
 
 
-@router.post("/products/", response_model=ResponseCreateProduct)
+@router.post(
+    "/products/",
+    response_model=ResponseCreateProduct,
+    status_code=status.HTTP_201_CREATED,
+)
 def create_product(product: CreateProduct):
     """
     Создаёт новый продукт и добавляет его в список.
@@ -56,7 +60,7 @@ def create_product(product: CreateProduct):
     """
     new_product = ResponseProduct(id=uuid4(), name=product.name, price=product.price)
     products.append(new_product)
-    return new_product.id
+    return ResponseCreateProduct(id=new_product.id)
 
 
 @router.put("/products/{product_id}", response_model=ResponseProduct)
