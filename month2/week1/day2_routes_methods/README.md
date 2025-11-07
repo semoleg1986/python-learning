@@ -110,5 +110,7 @@ day2_routes_methods/
 ├── main.py          # Точка входа
 ├── router.py        # Все маршруты
 ├── models.py        # Pydantic-модели
-└── data.py          # Хранилище (in-memory list)
+├── data.py          # Хранилище (in-memory list)
+└── test_products.py # Тесты CRUD
+
 ```
