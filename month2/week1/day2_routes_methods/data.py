@@ -1,5 +1,6 @@
-from typing import List
+from typing import Dict
+from uuid import UUID
 
 from models import ResponseProduct
 
-products: List[ResponseProduct] = []
+products: Dict[UUID, ResponseProduct] = {}

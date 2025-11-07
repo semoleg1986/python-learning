@@ -2,6 +2,7 @@
 Day 2 — Lambda, map, filter, reduce
 Тема: Анонимные функции и функции высшего порядка.
 """
+
 from functools import reduce
 
 

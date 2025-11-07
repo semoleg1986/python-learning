@@ -2,6 +2,7 @@
 Day 5 — Modules and import
 Тема: Создание и импорт модулей.
 """
+
 import datetime
 import math
 import random

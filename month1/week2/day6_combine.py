@@ -2,6 +2,7 @@
 Day 6 — Combined tasks
 Комбинированные задачи на функции, классы и модули.
 """
+
 import re
 import statistics
 from typing import Dict, Sequence

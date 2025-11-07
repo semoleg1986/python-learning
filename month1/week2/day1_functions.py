@@ -2,6 +2,7 @@
 Day 8 — Functions and arguments
 Тема: Определение функций, *args, **kwargs.
 """
+
 from datetime import datetime
 from typing import Any
 

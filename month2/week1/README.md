@@ -6,7 +6,7 @@
 
 ### Week 1 — FastAPI & REST
 - [x] Day 1 — Введение в FastAPI (`first_app`, `run_server`)
-- [ ] Day 2 — Маршруты и методы (`get_items`, `post_item`, `put_item`)
+- [x] Day 2 — Маршруты и методы (`get_items`, `post_item`, `put_item`)
 - [ ] Day 3 — Валидация данных (Pydantic) (`ItemModel`, `UserModel`, `validate_input`)
 - [ ] Day 4 — Ответы и коды состояния (`JSONResponse`, `status_code`, `custom_response`)
 - [ ] Day 5 — Организация кода (Routers) (`users_router`, `tasks_router`, `include_router`)

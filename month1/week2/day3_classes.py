@@ -2,6 +2,7 @@
 Day 3 — Classes and objects
 Тема: Создание классов, __init__, методы, атрибуты.
 """
+
 import math
 
 

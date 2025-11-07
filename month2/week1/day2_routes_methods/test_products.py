@@ -22,7 +22,7 @@ def test_get_products():
     response = client.get("/product/products/")
     assert response.status_code == 200
     data = response.json()
-    assert isinstance(data, list)
+    assert isinstance(data, dict)
     assert len(data) > 0
 
 
