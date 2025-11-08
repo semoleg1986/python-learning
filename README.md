@@ -41,8 +41,8 @@
 
 ### Месяц 2 — Введение в Backend (FastAPI)
 - [ ] Неделя 1: Основы FastAPI и REST 
-  - [ ] Day 1: Введение в FastAPI (`Hello, FastAPI!`)  
-  - [ ] Day 2: Маршруты и методы (`/tasks`, CRUD)  
+  - [x] Day 1: Введение в FastAPI (`Hello, FastAPI!`)  
+  - [x] Day 2: Маршруты и методы (`/tasks`, CRUD)  
   - [ ] Day 3: Валидация данных (Pydantic, `TaskCreate`, `TaskUpdate`)  
   - [ ] Day 4: Ответы и коды состояния (`HTTPException`, `status_code`)  
   - [ ] Day 5: Организация кода (`routers/`, `models/`, `schemas/`)  
