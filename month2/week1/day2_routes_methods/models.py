@@ -1,3 +1,4 @@
+from typing import List
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field
@@ -41,3 +42,21 @@ class ResponseCreateProduct(BaseModel):
     id: UUID = Field(
         default_factory=uuid4, description="Уникальный идентификатор продукта"
     )
+
+
+class PaginationMeta(BaseModel):
+    """Метаданные пагинации."""
+
+    total_records: int = Field(..., description="Общее количество записей")
+    page: int = Field(..., description="Номер текущей страницы")
+    per_page: int = Field(..., description="Количество записей на странице")
+    pages: int = Field(..., description="Всего страниц")
+    has_next: bool = Field(..., description="Есть ли следующая страница")
+    has_prev: bool = Field(..., description="Есть ли предыдущая страница")
+
+
+class PaginatedResponse(BaseModel):
+    """Обёртка для пагинированного ответа."""
+
+    data: List[ResponseProduct] = Field(..., description="Список продуктов")
+    pagination: PaginationMeta = Field(..., description="Метаданные пагинации")
