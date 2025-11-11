@@ -3,13 +3,11 @@ from uuid import UUID
 
 from models import ItemModel
 
-items = Dict[UUID, ItemModel]
-
 
 class ItemRepositoryMemory:
     """Хранилище для Item"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._storage: Dict[UUID, ItemModel] = {}
 
     def save(self, item: ItemModel) -> ItemModel:

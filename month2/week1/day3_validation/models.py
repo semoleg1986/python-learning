@@ -2,7 +2,7 @@ from uuid import UUID, uuid4
 
 from pydantic import BaseModel, EmailStr, Field, condecimal, constr
 
-password_regex = r"^(?=.*[A-Za-z])(?=.*\d).+$"
+password_pattern = r"^[A-Za-z\d]{8,}$"
 
 
 class ItemModel(BaseModel):
@@ -22,7 +22,7 @@ class ItemModel(BaseModel):
 
 class UserModel(BaseModel):
     email: EmailStr = Field(..., description="Электронная почта пользователя")
-    password: constr(min_length=8, regex=password_regex) = Field(
+    password: constr(min_length=8, pattern=password_pattern) = Field(
         ...,
         description="Пароль 8 символов, включая хотя бы одну букву и одну цифру",
     )

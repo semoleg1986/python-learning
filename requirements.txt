@@ -26,6 +26,10 @@ click==8.3.0
     #   uvicorn
 distlib==0.4.0
     # via virtualenv
+dnspython==2.8.0
+    # via email-validator
+email-validator==2.3.0
+    # via pydantic
 fastapi==0.120.4
     # via -r requirements.in
 filelock==3.19.1
@@ -45,6 +49,7 @@ identify==2.6.15
 idna==3.11
     # via
     #   anyio
+    #   email-validator
     #   httpx
 iniconfig==2.1.0
     # via pytest
@@ -78,7 +83,7 @@ pre-commit==4.3.0
     # via -r requirements.in
 pycodestyle==2.14.0
     # via flake8
-pydantic==2.12.3
+pydantic[email]==2.12.3
     # via
     #   -r requirements.in
     #   fastapi
