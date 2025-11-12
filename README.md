@@ -43,7 +43,7 @@
 - [ ] Неделя 1: Основы FastAPI и REST 
   - [x] Day 1: Введение в FastAPI (`Hello, FastAPI!`)  
   - [x] Day 2: Маршруты и методы (`/tasks`, CRUD)  
-  - [ ] Day 3: Валидация данных (Pydantic, `TaskCreate`, `TaskUpdate`)  
+  - [x] Day 3: Валидация данных (Pydantic, `TaskCreate`, `TaskUpdate`)  
   - [ ] Day 4: Ответы и коды состояния (`HTTPException`, `status_code`)  
   - [ ] Day 5: Организация кода (`routers/`, `models/`, `schemas/`)  
   - [ ] Day 6: Комбинированные задачи (фильтрация, поиск)  
