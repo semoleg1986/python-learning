@@ -1,6 +1,10 @@
-from config import Settings, settings
 from fastapi import Depends, FastAPI
-from router import items_router
+
+from month2.week1.day3_validation.infrastructure.config.settings import (
+    Settings,
+    settings,
+)
+from month2.week1.day3_validation.interface.api.v1.router import api_v1_router
 
 app = FastAPI(
     title=settings.APP_NAME, version=settings.VERSION, description=settings.DESCRIPTION
@@ -12,4 +16,4 @@ def info(cfg: Settings = Depends(lambda: settings)):
     return {"app_name": cfg.APP_NAME, "version": cfg.VERSION}
 
 
-app.include_router(items_router)
+app.include_router(api_v1_router)

@@ -1,12 +1,23 @@
-from uuid import UUID, uuid4
+from uuid import UUID
 
-from api.items.request import RequestCreateItem, RequestUpdateItem
-from api.items.response import PaginatedResponse, ResponseCreatedItem, ResponseItem
 from fastapi import APIRouter, HTTPException, status
-from item_repository_memory import ItemRepositoryMemory
-from models import ItemModel
 
-repo_items = ItemRepositoryMemory()
+from month2.week1.day3_validation.application.services.item_service import ItemService
+from month2.week1.day3_validation.infrastructure.repositories.item_memory import (
+    ItemRepositoryMemory,
+)
+from month2.week1.day3_validation.interface.api.v1.items.request import (
+    RequestCreateItem,
+    RequestUpdateItem,
+)
+from month2.week1.day3_validation.interface.api.v1.items.response import (
+    PaginatedResponse,
+    ResponseCreatedItem,
+    ResponseItem,
+)
+
+repo = ItemRepositoryMemory()
+service = ItemService(repo)
 
 items_router = APIRouter(
     prefix="/items",
@@ -23,7 +34,7 @@ def get_items() -> PaginatedResponse:
     :return: PaginatedResponse с ключом "data", содержащим список объектов ItemModel.
     :rtype: PaginatedResponse
     """
-    all_items = repo_items.list_all()
+    all_items = service.list_item()
     return PaginatedResponse(data=all_items)
 
 
@@ -36,12 +47,13 @@ def get_item(item_id: UUID) -> ResponseItem:
     :raises HTTPException: Если товар с указанным UUID не найден.
     :return: Объект ResponseItem.
     """
-    existing_item = repo_items.get(item_id)
-    if not existing_item:
+    try:
+        existing_item = service.get_item(item_id)
+        return ResponseItem.model_validate(existing_item)
+    except ValueError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
         )
-    return ResponseItem.model_validate(existing_item)
 
 
 @items_router.post(
@@ -56,10 +68,8 @@ def create_item(item: RequestCreateItem) -> ResponseCreatedItem:
     :return: Словарь с ключом "id" и UUID созданного товара.
     :rtype: ResponseCreatedItem
     """
-    new_id = uuid4()
-    new_item = ItemModel(id=new_id, name=item.name, price=item.price)
-    repo_items.save(new_item)
-    return ResponseCreatedItem(id=new_id)
+    new_item = service.create_item(item)
+    return ResponseCreatedItem(id=new_item.id)
 
 
 @items_router.put("/{item_id}", response_model=ResponseItem)
@@ -75,19 +85,12 @@ def update_item(item_id: UUID, item: RequestUpdateItem) -> ResponseItem:
     :return: Обновлённый объект ResponseItem.
     :rtype: ResponseItem
     """
-    existing_item = repo_items.get(item_id)
-    if not existing_item:
+    try:
+        return ResponseItem.model_validate(service.update_item(item_id, item))
+    except ValueError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
         )
-
-    updated_item = ItemModel(
-        id=item_id,
-        name=item.name if item.name is not None else existing_item.name,
-        price=item.price if item.price is not None else existing_item.price,
-    )
-    repo_items.save(updated_item)
-    return ResponseItem.model_validate(updated_item)
 
 
 @items_router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -99,13 +102,12 @@ def remove_item(item_id: UUID) -> None:
     :type item_id: UUID
     :raises HTTPException: Если товар с указанным UUID не найден.
     """
-    existing_item = repo_items.get(item_id)
-    if not existing_item:
+    try:
+        service.delete_item(item_id)
+    except ValueError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
         )
-    repo_items.delete(item_id)
-    return None
 
 
 user_routers = APIRouter(

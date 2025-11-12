@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional
 from uuid import UUID
 
-from models import ItemModel
+from month2.week1.day3_validation.domain.entities.item_model import ItemModel
 
 
 class ItemRepositoryMemory:
@@ -22,3 +22,6 @@ class ItemRepositoryMemory:
 
     def delete(self, item_id: UUID) -> bool:
         return self._storage.pop(item_id, None) is not None
+
+    def exists(self, item_id: UUID) -> bool:
+        return item_id in self._storage

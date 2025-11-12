@@ -139,7 +139,7 @@ obj = ConfigExample(x=10)
 
 8. Config / model_config
 
-В Pydantic v2 конфигурация задаётся через model_config:
+В Pydantic v2 конфигурация задаётся через **model_config**:
 
 ```python
 from pydantic import BaseModel, ConfigDict
