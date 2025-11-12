@@ -1,10 +1,12 @@
 from typing import List
 from uuid import UUID, uuid4
 
+from month2.week1.day3_validation.application.commands.item.create_item import (
+    CreateItemCommand,
+)
 from month2.week1.day3_validation.domain.entities.item_model import ItemModel
 
 from ...infrastructure.repositories.item_memory import ItemRepositoryMemory
-from ..commands.create_item import CreateItemCommand
 
 
 class ItemService:

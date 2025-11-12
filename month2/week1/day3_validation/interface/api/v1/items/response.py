@@ -2,6 +2,10 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+from month2.week1.day3_validation.interface.api.schemas.paginated_response import (
+    PaginatedResponse,
+)
+
 
 class ResponseCreatedItem(BaseModel):
     id: UUID = Field(..., description="Уникальный идентификатор товара")
@@ -15,7 +19,4 @@ class ResponseItem(BaseModel):
     model_config = {"from_attributes": True}
 
 
-class PaginatedResponse(BaseModel):
-    """Обёртка для пагинированного ответа."""
-
-    data: list[ResponseItem] = Field(..., description="Список Item")
+ItemListResponse = PaginatedResponse[ResponseItem]
