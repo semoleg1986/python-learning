@@ -31,11 +31,10 @@ class ItemRepositoryMemory:
     def update(self, item: Item) -> Item:
         if not self.exist(item.id):
             raise ItemNotFoundError(f"Item with id={item.id} not found")
-        for stored_item in self._storage.values():
-            if stored_item.id != item.id and stored_item.name == item.name:
-                raise ItemAlreadyExistsError(
-                    f"Item with name='{item.name}' already exists"
-                )
+
+        if self.exist_by_name(item.name, exclude_id=item.id):
+            raise ItemAlreadyExistsError(f"Item with name='{item.name}' already exists")
+
         self._storage[item.id] = item
         return item
 
@@ -47,5 +46,8 @@ class ItemRepositoryMemory:
     def exist(self, item_id: UUID) -> bool:
         return item_id in self._storage
 
-    def exist_by_name(self, name: str) -> bool:
-        return any(item.name == name for item in self._storage.values())
+    def exist_by_name(self, name: str, exclude_id: Optional[UUID] = None) -> bool:
+        return any(
+            item.name == name and item.id != exclude_id
+            for item in self._storage.values()
+        )
