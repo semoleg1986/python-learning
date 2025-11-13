@@ -4,6 +4,7 @@ from uuid import UUID
 from month2.week1.day4_responses_status.domain.entitites.item_model import Item
 from month2.week1.day4_responses_status.domain.exceptions.item_exceptions import (
     ItemAlreadyExistsError,
+    ItemNotFoundError,
 )
 
 
@@ -13,20 +14,35 @@ class ItemRepositoryMemory:
     def __init__(self) -> None:
         self._storage: Dict[UUID, Item] = {}
 
-    def list(self) -> List[Item]:
+    def get_all(self) -> List[Item]:
         return list(self._storage.values())
 
     def get(self, item_id: UUID) -> Optional[Item]:
         return self._storage.get(item_id)
 
-    def save(self, item: Item) -> Item:
+    def add(self, item: Item) -> Item:
         if self.exist(item.id):
             raise ItemAlreadyExistsError(f"Item with id={item.id} already exists")
+        if self.exist_by_name(item.name):
+            raise ItemAlreadyExistsError(f"Item with name='{item.name}' already exists")
         self._storage[item.id] = item
         return item
 
-    def delete(self, item_id: UUID) -> bool:
-        return self._storage.pop(item_id, None) is not None
+    def update(self, item: Item) -> Item:
+        if not self.exist(item.id):
+            raise ItemNotFoundError(f"Item with id={item.id} not found")
+        for stored_item in self._storage.values():
+            if stored_item.id != item.id and stored_item.name == item.name:
+                raise ItemAlreadyExistsError(
+                    f"Item with name='{item.name}' already exists"
+                )
+        self._storage[item.id] = item
+        return item
+
+    def delete(self, item_id: UUID) -> None:
+        if not self.exist(item_id):
+            raise ItemNotFoundError(f"Item with id={item_id} not found")
+        del self._storage[item_id]
 
     def exist(self, item_id: UUID) -> bool:
         return item_id in self._storage
