@@ -8,3 +8,9 @@ class ItemNotFoundError(Exception):
     """Выбрасывается, если товар не найден."""
 
     pass
+
+
+class ItemNotChangedError(Exception):
+    """Выбрасывается, если не было изменено ни одно поле"""
+
+    pass

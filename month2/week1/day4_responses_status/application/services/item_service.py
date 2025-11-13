@@ -10,6 +10,7 @@ from month2.week1.day4_responses_status.application.commands.item.update_item im
 from month2.week1.day4_responses_status.domain.entitites.item_model import Item
 from month2.week1.day4_responses_status.domain.exceptions.item_exceptions import (
     ItemAlreadyExistsError,
+    ItemNotChangedError,
     ItemNotFoundError,
 )
 from month2.week1.day4_responses_status.infrastructure.repositories.item_memory import (
@@ -49,16 +50,18 @@ class ItemService:
         if not existing:
             raise ItemNotFoundError(f"Item with id={item_id} not found")
 
-        if cmd.name and self.repo.exist_by_name(cmd.name, exclude_id=item_id):
+        new_name = cmd.name if cmd.name is not None else existing.name
+        new_price = cmd.price if cmd.price is not None else existing.price
+
+        if new_name == existing.name and new_price == existing.price:
+            raise ItemNotChangedError("No fields to update")
+
+        if self.repo.exist_by_name(new_name, exclude_id=item_id):
             raise ItemAlreadyExistsError(f"Item with name='{cmd.name}' already exists")
 
-        updated = Item(
-            id=item_id,
-            name=cmd.name if cmd.name is not None else existing.name,
-            price=cmd.price if cmd.price is not None else existing.price,
-        )
+        updated_item = Item(id=item_id, name=new_name, price=new_price)
 
-        return self.repo.update(updated)
+        return self.repo.update(updated_item)
 
     def delete_item(self, item_id: UUID) -> None:
         self.repo.delete(item_id)
