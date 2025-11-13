@@ -28,7 +28,7 @@ class ItemService:
     def __init__(self, repo: ItemRepositoryMemory = None):
         self.repo = repo or ItemRepositoryMemory()
 
-    def all_item(self) -> List[Item]:
+    def list_item(self) -> List[Item]:
         return self.repo.get_all()
 
     def get_item(self, item_id: UUID) -> Item:
