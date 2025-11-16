@@ -1,25 +1,25 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, condecimal, constr
 
 
 class RequestCreateItem(BaseModel):
-    name: str = Field(
+    name: constr(strip_whitespace=True, min_length=3, max_length=50) = Field(
         ...,
-        min_length=3,
-        max_length=50,
         description="Название товара",
         example="Apple AirMax Pro",
     )
-    price: float = Field(..., gt=0, description="Цена товара, больше 0", example=50000)
+    price: condecimal(gt=0, decimal_places=2) = Field(
+        ..., description="Цена товара, больше 0", example=50000
+    )
 
 
 class RequestUpdateItem(BaseModel):
-    name: str | None = Field(
+    name: constr(strip_whitespace=True, min_length=3, max_length=50) | None = Field(
         None,
-        min_length=3,
-        max_length=50,
-        description="Название товара",
+        description="Название товара от 3 до 50 символов.",
         example="Apple AirMax Pro",
     )
-    price: float | None = Field(
-        None, gt=0, description="Цена товара, больше 0", example=50000
+    price: condecimal(gt=0, decimal_places=2) | None = Field(
+        None,
+        description="Цена товара, больше 0, максимум 2 знака после запятой",
+        example=50000,
     )

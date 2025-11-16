@@ -1,16 +1,28 @@
-class ItemAlreadyExistsError(Exception):
+class ItemError(Exception):
+    """Базовое исключение для Item в Domain."""
+
+    pass
+
+
+class ItemValidationError(ItemError):
+    """Ошибка при нарушении правил создания или обновления Item."""
+
+    pass
+
+
+class ItemAlreadyExistsError(ItemError):
     """Выбрасывается, если товар с таким именем уже существует."""
 
     pass
 
 
-class ItemNotFoundError(Exception):
+class ItemNotFoundError(ItemError):
     """Выбрасывается, если товар не найден."""
 
     pass
 
 
-class ItemNotChangedError(Exception):
+class ItemNotChangedError(ItemError):
     """Выбрасывается, если не было изменено ни одно поле"""
 
     pass

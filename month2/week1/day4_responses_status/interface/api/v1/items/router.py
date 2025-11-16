@@ -8,6 +8,7 @@ from month2.week1.day4_responses_status.domain.exceptions.item_exceptions import
     ItemAlreadyExistsError,
     ItemNotChangedError,
     ItemNotFoundError,
+    ItemValidationError,
 )
 from month2.week1.day4_responses_status.interface.api.schemas.meta import PaginationMeta
 from month2.week1.day4_responses_status.interface.api.v1.items.request import (
@@ -173,10 +174,14 @@ def update_item(item_id: UUID, req: RequestUpdateItem) -> InfoResponse:
         )
     except ItemNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+    except ItemValidationError as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e)
+        )
+    except ItemNotChangedError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except ItemAlreadyExistsError as e:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
-    except ItemNotChangedError as e:
-        raise HTTPException(status_code=400, detail=str(e))
 
 
 @items_router.delete(
