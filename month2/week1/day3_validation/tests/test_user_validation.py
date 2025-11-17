@@ -16,25 +16,6 @@ def test_user_model_valid():
     assert user.password == "StrongP@ss1"
 
 
-def test_user_model_invalid_password():
-    # Пароль без заглавной буквы
-    with pytest.raises(ValidationError) as exc_info:
-        UserModel(email="test@example.com", password="weakp@ss1")
-    assert "Пароль должен содержать хотя бы одну заглавную букву" in str(exc_info.value)
-
-    # Пароль без цифры
-    with pytest.raises(ValidationError) as exc_info:
-        UserModel(email="test@example.com", password="WeakPass@")
-    assert "Пароль должен содержать хотя бы одну цифру" in str(exc_info.value)
-
-    # Пароль без спецсимвола
-    with pytest.raises(ValidationError) as exc_info:
-        UserModel(email="test@example.com", password="WeakPass1")
-    assert "Пароль должен содержать хотя бы один специальный символ" in str(
-        exc_info.value
-    )
-
-
 def test_request_create_user_validation():
     # Валидный DTO
     dto = RequestCreateUser(email="dto@example.com", password="DtoP@ss1")

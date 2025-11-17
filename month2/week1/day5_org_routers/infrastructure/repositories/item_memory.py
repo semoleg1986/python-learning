@@ -12,7 +12,7 @@ class ItemRepositoryMemory:
     """Хранилище для Item"""
 
     def __init__(self) -> None:
-        self._storage = Dict[UUID, ItemModel] = {}
+        self._storage: Dict[UUID, ItemModel] = {}
 
     def get_all(self):
         return list(self._storage.values())
