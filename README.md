@@ -45,7 +45,7 @@
   - [x] Day 2: Маршруты и методы (`/tasks`, CRUD)  
   - [x] Day 3: Валидация данных (Pydantic, `TaskCreate`, `TaskUpdate`)  
   - [x] Day 4: Ответы и коды состояния (`HTTPException`, `status_code`)  
-  - [ ] Day 5: Организация кода (`routers/`, `models/`, `schemas/`)  
+  - [x] Day 5: Организация кода (`routers/`, `models/`, `schemas/`)  
   - [ ] Day 6: Комбинированные задачи (фильтрация, поиск)  
   - [ ] Day 7: Mini-project: **ToDo API (in-memory)**
 - [ ] Неделя 2: PostgreSQL и SQLAlchemy

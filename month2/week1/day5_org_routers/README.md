@@ -27,6 +27,20 @@
 - interface/api/v1/items/ → request.py, response.py, router.py
 - interface/api/v1/users/ → request.py, response.py, router.py
 
+### Что сделано
+
+✓ Модульная архитектура
+
+✓ Команды (create/update)
+
+✓ Clean + DDD + services + domain
+
+✓ Репозитории отдельно
+
+✓ Тесты на сервисы, репы и API
+
+✓ versioning API (v1/)
+
 ## Структура
 ```commandline
 ├── main.py
