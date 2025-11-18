@@ -1,7 +1,7 @@
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, Path, status
+from fastapi import APIRouter, HTTPException, status
 
 from month2.week1.day5_org_routers.dependencies import items_service
 from month2.week1.day5_org_routers.domain.exceptions.item_exceptions import (
@@ -51,13 +51,7 @@ def get_items():
     description="Возвращает объект товара по UUID.",
     responses={404: {"description": "Item with given ID not found"}},
 )
-def get_item(
-    item_id: UUID = Path(
-        ...,
-        description="UUID товара для удаления",
-        example="f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    )
-) -> ResponseItem:
+def get_item(item_id: UUID) -> ResponseItem:
     """
     Получить товар по его UUID.
 
@@ -144,13 +138,7 @@ def update_item(item_id: UUID, req: RequestUpdateItem) -> ResponseItem:
     description="Удаляет товар по ID. Возбуждает 404, если товар не найден.",
     responses={404: {"description": "Item not found"}},
 )
-def delete_item(
-    item_id: UUID = Path(
-        ...,
-        description="UUID товара для удаления",
-        example="f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    )
-):
+def delete_item(item_id: UUID):
     """
     Удалить товар по его UUID.
 

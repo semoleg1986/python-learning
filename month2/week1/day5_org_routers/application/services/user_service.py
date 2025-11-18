@@ -36,7 +36,9 @@ class UserService:
 
     def create_user(self, cmd: CreateUserCommand) -> UserModel:
         if self.repo.exists_by_email(cmd.email):
-            raise UserAlreadyExistsError(f"User with email={cmd.email} already exists")
+            raise UserAlreadyExistsError(
+                f"User with the email={cmd.email} already exists"
+            )
         new_user = UserModel(id=uuid4(), email=cmd.email, password=cmd.password)
         return self.repo.add(new_user)
 

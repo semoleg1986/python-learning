@@ -12,6 +12,10 @@ tags_metadata = [
         "name": "items",
         "description": "Эндпоинты для работы с товарами.",
     },
+    {
+        "name": "users",
+        "description": "Эндпоинты для работы с пользователями.",
+    },
 ]
 
 app = FastAPI(
