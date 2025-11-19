@@ -1,7 +1,7 @@
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Query, status
 
 from month2.week1.day6_combine.dependencies import items_service
 from month2.week1.day6_combine.domain.exceptions.item_exceptions import (
@@ -25,10 +25,14 @@ items_router = APIRouter(prefix="/items", tags=["items"])
 @items_router.get(
     "/",
     response_model=List[ResponseItem],
-    summary="Список всех товаров",
-    description="Возвращает полный список товаров в хранилище.",
+    summary="Поиск и фильтрация товаров",
+    description="Фильтрует товары по названию и диапазону цен.",
 )
-def get_items():
+def get_items(
+    name: str | None = Query(None, description="Частичное совпадение названия"),
+    min_price: float | None = Query(None, ge=0, description="Минимальная цена"),
+    max_price: float | None = Query(None, ge=0, description="Максимальная цена"),
+):
     """
     Получить список товаров.
 
@@ -38,10 +42,17 @@ def get_items():
     # :type page: int
     # :param per_page: Количество товаров на одной странице (1–100)
     # :type per_page: int
+    :param name: Поиск по имени
+    :type name: str
+    :param min_price: Минимальная цена стоимости поиска
+    :type min_price: float
+    :param max_price: Максимальная цена стоимости поиска
+    :type max_price: float
     :return: Объект с данными о товарах и метаинформацией пагинации
     :rtype: List[ResponseItem]
     """
-    return [item for item in items_service.list_item()]
+    items = items_service.list_item(name=name, min_price=min_price, max_price=max_price)
+    return [ResponseItem.model_validate(item) for item in items]
 
 
 @items_router.get(

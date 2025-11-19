@@ -14,8 +14,21 @@ class ItemRepositoryMemory:
     def __init__(self) -> None:
         self._storage: Dict[UUID, ItemModel] = {}
 
-    def get_all(self) -> List[ItemModel]:
-        return list(self._storage.values())
+    def get_all(
+        self, name: str = None, min_price: float = None, max_price=None
+    ) -> List[ItemModel]:
+        result = list(self._storage.values())
+
+        if name:
+            result = [i for i in result if name.lower() in i.name.lower()]
+
+        if min_price is not None:
+            result = [i for i in result if float(i.price) >= min_price]
+
+        if max_price is not None:
+            result = [i for i in result if float(i.price) <= max_price]
+
+        return result
 
     def get(self, item_id: UUID) -> Optional[ItemModel]:
         return self._storage.get(item_id)

@@ -187,3 +187,79 @@ def test_delete_item_not_found(client, mock_items_service):
     resp = client.delete(f"/items/{uuid4()}")
 
     assert resp.status_code == 404
+
+
+def test_get_items_filter_by_name(client, mock_items_service):
+    """Фильтрация по частичному совпадению имени."""
+    item1 = ItemModel(id=uuid4(), name="Apple Watch", price=300)
+    item2 = ItemModel(id=uuid4(), name="Apple MacBook", price=1500)
+
+    mock_items_service.list_item.return_value = [item1, item2]
+
+    resp = client.get("/items/?name=Apple")
+
+    assert resp.status_code == 200
+    assert len(resp.json()) == 2
+    mock_items_service.list_item.assert_called_once_with(
+        name="Apple", min_price=None, max_price=None
+    )
+
+
+def test_get_items_filter_by_min_price(client, mock_items_service):
+    """Фильтрация по минимальной цене."""
+    item = ItemModel(id=uuid4(), name="iPhone", price=1000)
+
+    mock_items_service.list_item.return_value = [item]
+
+    resp = client.get("/items/?min_price=900")
+
+    assert resp.status_code == 200
+    assert len(resp.json()) == 1
+    mock_items_service.list_item.assert_called_once_with(
+        name=None, min_price=900.0, max_price=None
+    )
+
+
+def test_get_items_filter_by_max_price(client, mock_items_service):
+    """Фильтрация по максимальной цене."""
+    item = ItemModel(id=uuid4(), name="Keyboard", price=50)
+
+    mock_items_service.list_item.return_value = [item]
+
+    resp = client.get("/items/?max_price=100")
+
+    assert resp.status_code == 200
+    assert len(resp.json()) == 1
+    mock_items_service.list_item.assert_called_once_with(
+        name=None, min_price=None, max_price=100.0
+    )
+
+
+def test_get_items_filter_by_name_and_price(client, mock_items_service):
+    """Фильтрация по имени + диапазону цен."""
+    item = ItemModel(id=uuid4(), name="Monitor Pro", price=300)
+
+    mock_items_service.list_item.return_value = [item]
+
+    resp = client.get("/items/?name=Pro&min_price=200&max_price=400")
+
+    assert resp.status_code == 200
+    assert len(resp.json()) == 1
+
+    mock_items_service.list_item.assert_called_once_with(
+        name="Pro", min_price=200.0, max_price=400.0
+    )
+
+
+def test_get_items_no_results(client, mock_items_service):
+    """Если ничего не найдено — возвращаем пустой массив."""
+    mock_items_service.list_item.return_value = []
+
+    resp = client.get("/items/?name=XYZ&min_price=999")
+
+    assert resp.status_code == 200
+    assert resp.json() == []
+
+    mock_items_service.list_item.assert_called_once_with(
+        name="XYZ", min_price=999.0, max_price=None
+    )
