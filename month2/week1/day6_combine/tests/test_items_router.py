@@ -14,14 +14,14 @@ from month2.week1.day6_combine.domain.exceptions.item_exceptions import (
 )
 from month2.week1.day6_combine.interface.api.v1.items.router import items_router
 
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # FIXTURES
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 
 
 @pytest.fixture
 def client():
-    """Создаём отдельное FastAPI-приложение для роутов items."""
+    """Создаем отдельное приложение FastAPI только с items_router."""
     app = FastAPI()
     app.include_router(items_router)
     return TestClient(app)
@@ -29,10 +29,7 @@ def client():
 
 @pytest.fixture(autouse=True)
 def mock_items_service(monkeypatch):
-    """
-    Автоматически подменяем items_service мок-объектом.
-    Все тесты используют его.
-    """
+    """Автоматически подменяем items_service мок объектом."""
     mock = MagicMock()
     monkeypatch.setattr(
         "month2.week1.day6_combine.interface.api.v1.items.router.items_service",
@@ -41,27 +38,108 @@ def mock_items_service(monkeypatch):
     return mock
 
 
-# ------------------------------------------------------------------------------
-# GET /items
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# GET /items — pagination + filters
+# --------------------------------------------------------------------------
 
 
-def test_get_items(client, mock_items_service):
+def test_get_items_basic_pagination(client, mock_items_service):
     item1 = ItemModel(id=uuid4(), name="Item1", price=100)
     item2 = ItemModel(id=uuid4(), name="Item2", price=200)
 
     mock_items_service.list_item.return_value = [item1, item2]
 
-    resp = client.get("/items/")
+    resp = client.get("/items/?page=1&per_page=10")
+    data = resp.json()
 
     assert resp.status_code == 200
-    assert len(resp.json()) == 2
-    assert resp.json()[0]["name"] == "Item1"
+    assert data["pagination"]["total_records"] == 2
+    assert data["pagination"]["page"] == 1
+    assert data["pagination"]["per_page"] == 10
+
+    assert len(data["data"]) == 2
+    assert data["data"][0]["name"] == "Item1"
 
 
-# ------------------------------------------------------------------------------
+def test_get_items_filter_by_name(client, mock_items_service):
+    item1 = ItemModel(id=uuid4(), name="Apple Watch", price=300)
+    item2 = ItemModel(id=uuid4(), name="Apple MacBook", price=1500)
+
+    mock_items_service.list_item.return_value = [item1, item2]
+
+    resp = client.get("/items/?name=Apple")
+    result = resp.json()
+
+    assert resp.status_code == 200
+    assert len(result["data"]) == 2
+
+    mock_items_service.list_item.assert_called_once_with(
+        name="Apple", min_price=None, max_price=None
+    )
+
+
+def test_get_items_filter_by_min_price(client, mock_items_service):
+    item = ItemModel(id=uuid4(), name="iPhone", price=1000)
+    mock_items_service.list_item.return_value = [item]
+
+    resp = client.get("/items/?min_price=900")
+    result = resp.json()
+
+    assert resp.status_code == 200
+    assert len(result["data"]) == 1
+
+    mock_items_service.list_item.assert_called_once_with(
+        name=None, min_price=900.0, max_price=None
+    )
+
+
+def test_get_items_filter_by_max_price(client, mock_items_service):
+    item = ItemModel(id=uuid4(), name="Keyboard", price=50)
+    mock_items_service.list_item.return_value = [item]
+
+    resp = client.get("/items/?max_price=100")
+    result = resp.json()
+
+    assert resp.status_code == 200
+    assert len(result["data"]) == 1
+
+    mock_items_service.list_item.assert_called_once_with(
+        name=None, min_price=None, max_price=100.0
+    )
+
+
+def test_get_items_filter_name_and_price(client, mock_items_service):
+    item = ItemModel(id=uuid4(), name="Monitor Pro", price=300)
+    mock_items_service.list_item.return_value = [item]
+
+    resp = client.get("/items/?name=Pro&min_price=200&max_price=400")
+    result = resp.json()
+
+    assert resp.status_code == 200
+    assert len(result["data"]) == 1
+
+    mock_items_service.list_item.assert_called_once_with(
+        name="Pro", min_price=200.0, max_price=400.0
+    )
+
+
+def test_get_items_no_results(client, mock_items_service):
+    mock_items_service.list_item.return_value = []
+
+    resp = client.get("/items/?name=XYZ")
+    result = resp.json()
+
+    assert resp.status_code == 200
+    assert result["data"] == []
+
+    mock_items_service.list_item.assert_called_once_with(
+        name="XYZ", min_price=None, max_price=None
+    )
+
+
+# --------------------------------------------------------------------------
 # GET /items/{id}
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 
 
 def test_get_item_success(client, mock_items_service):
@@ -69,22 +147,23 @@ def test_get_item_success(client, mock_items_service):
     mock_items_service.get_item.return_value = item
 
     resp = client.get(f"/items/{item.id}")
+    data = resp.json()
 
     assert resp.status_code == 200
-    assert resp.json()["name"] == "Test"
+    assert data["data"]["name"] == "Test"
+    assert data["status"] == "success"
 
 
 def test_get_item_not_found(client, mock_items_service):
     mock_items_service.get_item.side_effect = ItemNotFoundError("not found")
 
     resp = client.get(f"/items/{uuid4()}")
-
     assert resp.status_code == 404
 
 
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # POST /items
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 
 
 def test_create_item_success(client, mock_items_service):
@@ -94,86 +173,67 @@ def test_create_item_success(client, mock_items_service):
     )
 
     resp = client.post("/items/", json={"name": "Abc", "price": 10})
+    data = resp.json()
 
     assert resp.status_code == 201
-    assert resp.json()["id"] == str(new_id)
+    assert data["data"]["id"] == str(new_id)
 
 
 def test_create_item_exists(client, mock_items_service):
     mock_items_service.create_item.side_effect = ItemAlreadyExistsError("exists")
 
     resp = client.post("/items/", json={"name": "Abc", "price": 10})
-
     assert resp.status_code == 400
 
 
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # PUT /items/{id}
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 
 
 def test_update_item_success(client, mock_items_service):
     item_id = uuid4()
     updated = ItemModel(id=item_id, name="Updated", price=50)
-
     mock_items_service.update_item.return_value = updated
 
-    resp = client.put(
-        f"/items/{item_id}",
-        json={"name": "Updated", "price": 50},
-    )
+    resp = client.put(f"/items/{item_id}", json={"name": "Updated", "price": 50})
+    data = resp.json()
 
     assert resp.status_code == 200
-    assert resp.json()["name"] == "Updated"
+    assert data["data"]["name"] == "Updated"
 
 
 def test_update_item_not_found(client, mock_items_service):
     mock_items_service.update_item.side_effect = ItemNotFoundError("not found")
 
-    resp = client.put(
-        f"/items/{uuid4()}",
-        json={"name": "Abc", "price": 10},
-    )
-
+    resp = client.put(f"/items/{uuid4()}", json={"name": "Abc", "price": 10})
     assert resp.status_code == 404
 
 
 def test_update_item_conflict(client, mock_items_service):
     mock_items_service.update_item.side_effect = ItemAlreadyExistsError("dup")
 
-    resp = client.put(
-        f"/items/{uuid4()}",
-        json={"name": "Abc", "price": 10},
-    )
-
+    resp = client.put(f"/items/{uuid4()}", json={"name": "Abc", "price": 10})
     assert resp.status_code == 409
 
 
 def test_update_item_not_changed(client, mock_items_service):
     mock_items_service.update_item.side_effect = ItemNotChangedError("not changed")
 
-    resp = client.put(
-        f"/items/{uuid4()}",
-        json={"name": "Abc", "price": 10},
-    )
-
+    resp = client.put(f"/items/{uuid4()}", json={"name": "Abc", "price": 10})
     assert resp.status_code == 400
 
 
 def test_update_item_validation_error(client, mock_items_service):
     mock_items_service.update_item.side_effect = ItemValidationError("invalid")
 
-    resp = client.put(
-        f"/items/{uuid4()}",
-        json={"name": "Abc", "price": 10},
-    )
-
+    resp = client.put(f"/items/{uuid4()}", json={"name": "Abc", "price": 10})
     assert resp.status_code == 422
 
 
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # DELETE /items/{id}
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 
 
 def test_delete_item_success(client, mock_items_service):
@@ -185,81 +245,4 @@ def test_delete_item_not_found(client, mock_items_service):
     mock_items_service.delete_item.side_effect = ItemNotFoundError("not found")
 
     resp = client.delete(f"/items/{uuid4()}")
-
     assert resp.status_code == 404
-
-
-def test_get_items_filter_by_name(client, mock_items_service):
-    """Фильтрация по частичному совпадению имени."""
-    item1 = ItemModel(id=uuid4(), name="Apple Watch", price=300)
-    item2 = ItemModel(id=uuid4(), name="Apple MacBook", price=1500)
-
-    mock_items_service.list_item.return_value = [item1, item2]
-
-    resp = client.get("/items/?name=Apple")
-
-    assert resp.status_code == 200
-    assert len(resp.json()) == 2
-    mock_items_service.list_item.assert_called_once_with(
-        name="Apple", min_price=None, max_price=None
-    )
-
-
-def test_get_items_filter_by_min_price(client, mock_items_service):
-    """Фильтрация по минимальной цене."""
-    item = ItemModel(id=uuid4(), name="iPhone", price=1000)
-
-    mock_items_service.list_item.return_value = [item]
-
-    resp = client.get("/items/?min_price=900")
-
-    assert resp.status_code == 200
-    assert len(resp.json()) == 1
-    mock_items_service.list_item.assert_called_once_with(
-        name=None, min_price=900.0, max_price=None
-    )
-
-
-def test_get_items_filter_by_max_price(client, mock_items_service):
-    """Фильтрация по максимальной цене."""
-    item = ItemModel(id=uuid4(), name="Keyboard", price=50)
-
-    mock_items_service.list_item.return_value = [item]
-
-    resp = client.get("/items/?max_price=100")
-
-    assert resp.status_code == 200
-    assert len(resp.json()) == 1
-    mock_items_service.list_item.assert_called_once_with(
-        name=None, min_price=None, max_price=100.0
-    )
-
-
-def test_get_items_filter_by_name_and_price(client, mock_items_service):
-    """Фильтрация по имени + диапазону цен."""
-    item = ItemModel(id=uuid4(), name="Monitor Pro", price=300)
-
-    mock_items_service.list_item.return_value = [item]
-
-    resp = client.get("/items/?name=Pro&min_price=200&max_price=400")
-
-    assert resp.status_code == 200
-    assert len(resp.json()) == 1
-
-    mock_items_service.list_item.assert_called_once_with(
-        name="Pro", min_price=200.0, max_price=400.0
-    )
-
-
-def test_get_items_no_results(client, mock_items_service):
-    """Если ничего не найдено — возвращаем пустой массив."""
-    mock_items_service.list_item.return_value = []
-
-    resp = client.get("/items/?name=XYZ&min_price=999")
-
-    assert resp.status_code == 200
-    assert resp.json() == []
-
-    mock_items_service.list_item.assert_called_once_with(
-        name="XYZ", min_price=999.0, max_price=None
-    )

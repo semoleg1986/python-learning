@@ -1,4 +1,4 @@
-from typing import List
+from math import ceil
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Query, status
@@ -10,11 +10,14 @@ from month2.week1.day6_combine.domain.exceptions.item_exceptions import (
     ItemNotFoundError,
     ItemValidationError,
 )
+from month2.week1.day6_combine.interface.api.schemas.meta import PaginationMeta
 from month2.week1.day6_combine.interface.api.v1.items.request import (
     RequestCreateItem,
     RequestUpdateItem,
 )
 from month2.week1.day6_combine.interface.api.v1.items.response import (
+    InfoResponse,
+    ItemListResponse,
     ResponseCreateItem,
     ResponseItem,
 )
@@ -24,24 +27,28 @@ items_router = APIRouter(prefix="/items", tags=["items"])
 
 @items_router.get(
     "/",
-    response_model=List[ResponseItem],
+    response_model=ItemListResponse,
     summary="Поиск и фильтрация товаров",
     description="Фильтрует товары по названию и диапазону цен.",
 )
 def get_items(
+    page: int = Query(1, ge=1, description="Номер страницы"),
+    per_page: int = Query(
+        10, ge=1, le=100, description="Количество продуктов в страницу"
+    ),
     name: str | None = Query(None, description="Частичное совпадение названия"),
     min_price: float | None = Query(None, ge=0, description="Минимальная цена"),
     max_price: float | None = Query(None, ge=0, description="Максимальная цена"),
-):
+) -> ItemListResponse:
     """
     Получить список товаров.
 
     Возвращает список товаров с параметрами пагинации.
 
-    # :param page: Номер страницы (начиная с 1)
-    # :type page: int
-    # :param per_page: Количество товаров на одной странице (1–100)
-    # :type per_page: int
+    :param page: Номер страницы (начиная с 1)
+    :type page: int
+    :param per_page: Количество товаров на одной странице (1–100)
+    :type per_page: int
     :param name: Поиск по имени
     :type name: str
     :param min_price: Минимальная цена стоимости поиска
@@ -49,20 +56,40 @@ def get_items(
     :param max_price: Максимальная цена стоимости поиска
     :type max_price: float
     :return: Объект с данными о товарах и метаинформацией пагинации
-    :rtype: List[ResponseItem]
+    :rtype: ItemListResponse
     """
-    items = items_service.list_item(name=name, min_price=min_price, max_price=max_price)
-    return [ResponseItem.model_validate(item) for item in items]
+    all_items = items_service.list_item(
+        name=name, min_price=min_price, max_price=max_price
+    )
+    total_items = len(all_items)
+    total_pages = ceil(total_items / per_page) if total_items > 0 else 1
+
+    start = (page - 1) * per_page
+    end = start + per_page
+    paginated_data = all_items[start:end]
+
+    pagination_meta = PaginationMeta(
+        total_records=total_items,
+        page=page,
+        per_page=per_page,
+        pages=total_pages,
+        has_next=page < total_pages,
+        has_prev=page > 1,
+    )
+    return ItemListResponse(
+        data=paginated_data,
+        pagination=pagination_meta,
+    )
 
 
 @items_router.get(
     "/{item_id}",
-    response_model=ResponseItem,
+    response_model=InfoResponse,
     summary="Получить товар по ID",
     description="Возвращает объект товара по UUID.",
     responses={404: {"description": "Item with given ID not found"}},
 )
-def get_item(item_id: UUID) -> ResponseItem:
+def get_item(item_id: UUID) -> InfoResponse:
     """
     Получить товар по его UUID.
 
@@ -70,18 +97,22 @@ def get_item(item_id: UUID) -> ResponseItem:
     :type item_id: UUID
     :raises HTTPException 404: Если товар не найден
     :return: Информация о товаре
-    :rtype: ResponseItem
+    :rtype: InfoResponse
     """
     try:
         item = items_service.get_item(item_id)
-        return ResponseItem.model_validate(item)
-    except ItemNotFoundError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        return InfoResponse(
+            status="success",
+            message="Item fetched successful",
+            data=ResponseItem.model_validate(item),
+        )
+    except ItemNotFoundError:
+        raise HTTPException(status_code=404, detail=f"Item with id={item_id} not found")
 
 
 @items_router.post(
     "/",
-    response_model=ResponseCreateItem,
+    response_model=InfoResponse,
     status_code=status.HTTP_201_CREATED,
     summary="Создать новый товар",
     description="Создаёт новый товар с уникальным названием и ценой.",
@@ -90,7 +121,7 @@ def get_item(item_id: UUID) -> ResponseItem:
         422: {"description": "Ошибка валидации данных"},
     },
 )
-def create_item(req: RequestCreateItem) -> ResponseCreateItem:
+def create_item(req: RequestCreateItem) -> InfoResponse:
     """
     Создать новый товар.
 
@@ -98,22 +129,26 @@ def create_item(req: RequestCreateItem) -> ResponseCreateItem:
     :type req: RequestCreateItem
     :raises HTTPException 400: Если товар с таким именем уже существует
     :return: Статус операции и ID созданного товара
-    :rtype: ResponseCreateItem
+    :rtype: InfoResponse
     """
     try:
         item = items_service.create_item(req)
-        return ResponseCreateItem(id=item.id)
+        return InfoResponse(
+            status="success",
+            message="Item created",
+            data=ResponseCreateItem(id=item.id),
+        )
     except ItemAlreadyExistsError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 
 @items_router.put(
     "/{item_id}",
-    response_model=ResponseItem,
+    response_model=InfoResponse,
     summary="Обновить товар по ID",
     description="Обновляет название и/или цену товара по ID.",
 )
-def update_item(item_id: UUID, req: RequestUpdateItem) -> ResponseItem:
+def update_item(item_id: UUID, req: RequestUpdateItem) -> InfoResponse:
     """
     Обновить существующий товар по UUID.
 
@@ -125,11 +160,15 @@ def update_item(item_id: UUID, req: RequestUpdateItem) -> ResponseItem:
     :raises HTTPException 409: Если имя товара уже используется
     :raises HTTPException 400: Если данные не изменились
     :return: Обновлённая информация о товаре
-    :rtype: ResponseItem
+    :rtype: InfoResponse
     """
     try:
         item = items_service.update_item(item_id, req)
-        return ResponseItem.model_validate(item)
+        return InfoResponse(
+            status="success",
+            message="Item updated",
+            data=ResponseItem.model_validate(item),
+        )
     except ItemNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
     except ItemValidationError as e:
