@@ -1,6 +1,7 @@
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 
-from month2.week1.day6_combine.infrastructure.config.settings import Settings, settings
+from month2.week1.day6_combine.infrastructure.config.settings import settings
+from month2.week1.day6_combine.interface.api.router import api_router
 
 tags_metadata = [
     {"name": "info", "description": "Эндпоинты для информации о приложении"},
@@ -18,16 +19,4 @@ app = FastAPI(
 )
 
 
-@app.get(
-    "/info",
-    tags=["info"],
-    summary="Информация о приложении",
-    description="Возвращает имя приложения и его версию.",
-    response_model=dict,
-    responses={200: {"description": "Информация успешно получена"}},
-)
-def info(cfg: Settings = Depends(lambda: settings)):
-    """
-    Эндпоинт возвращает базовую информацию о приложении.
-    """
-    return {"app_name": cfg.APP_NAME, "version": cfg.VERSION}
+app.include_router(api_router)
