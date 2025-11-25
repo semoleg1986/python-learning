@@ -10,7 +10,7 @@
 - [x] Day 3 — Валидация данных (Pydantic) (`ItemModel`, `UserModel`, `validate_input`)
 - [x] Day 4 — Ответы и коды состояния (`JSONResponse`, `status_code`, `custom_response`)
 - [x] Day 5 — Организация кода (Routers) (`users_router`, `tasks_router`, `include_router`)
-- [ ] Day 6 — Combined Tasks (`CRUD_operations`, `query_params`, `path_params`)
+- [x] Day 6 — Combined Tasks (`CRUD_operations`, `query_params`, `path_params`)
 - [ ] Day 7 — Mini-project → **ToDo API (in-memory)**
 
 ---
